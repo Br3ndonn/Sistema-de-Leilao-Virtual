@@ -35,6 +35,6 @@ public class Lote {
     }
 
     public String toString() {
-        return this.getNumero() + ":" + this.getDescricao();
+        return this.getNumero() + " (" + this.getDescricao() + ")";
     }
 }

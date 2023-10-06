@@ -6,34 +6,37 @@ public class Terminal {
 
     public Terminal() {
         this.leilao = new Leilao();
-        this.modoAtual = 1;
+        this.modoAtual = 0;
     }
 
     public void iniciaOperacao() {
-        int opcao;
+        int opcao, qtd_lotes;
 
         opcao = this.getOpcao();
         while (opcao != 8) {
             switch (opcao) {
-                case 1:
-                    this.leilao.adicionaLote(getString("Descricao: "));
+                case 1: qtd_lotes = getInt("Qtd de lotes a serem adicionados: ");
+                    for (int i = 0; i < qtd_lotes; i++) {
+                        this.leilao.adicionaLote(getString("Descricao: "));
+                    }
+                        modoAtual = 1;
                     break;
                 case 2: Lote lote = leilao.getLote(getInt("Numero do lote: "));
                 	if(lote == null) {
                 		break;
                 	} 
-                	this.leilao.getLote(lote.getNumero()).lancePara(new Pessoa(getString("nome: ")), (double) getInt("Valor: "));
+                	this.leilao.getLote(lote.getNumero()).lancePara(new Pessoa(getString("Nome Licitante: ")), getInt("Valor: "));
                 	break;
-                case 3:
-                    this.leilao.close();
+                case 3: this.leilao.close();
+                    modoAtual = 0;
                     break;
-                case 4:
-                    this.leilao = new Leilao();
+                case 4: this.leilao = new Leilao();
+                    modoAtual = 0;
                     break;
-                case 5:
-                    this.leilao.mostraLotes();
+                case 5: this.leilao.mostraLotes();
                     break;
-
+                case 6: this.leilao.getNaoVendidos();
+                    break;
             }
             opcao = getOpcao();
         }
@@ -44,13 +47,13 @@ public class Terminal {
 
         do {
             if (this.modoAtual == 1) {
-                opcao = getInt("Opção: 1 - Adiciocar Lotes, 2 - Dar Lance, 3 - Fechar Leilão, 5 - Mostra Lotes, 8 - Sair");
-                if (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 8) {
+                opcao = getInt("2 - Dar Lance, 3 - Fechar Leilão, 5 - Mostrar Lotes, 8 - Sair");
+                if (opcao != 2 && opcao != 3 && opcao != 5 && opcao != 8) {
                     opcao = 0;
                 }
             } else {
-                opcao = getInt("Opção: 4 - Novo leilão, 8 - Sair");
-                if (opcao != 4 && opcao != 8) {
+                opcao = getInt("Opção: 1 - Adicionar Lotes, 4 - Novo leilão, 8 - Sair");
+                if (opcao != 1 && opcao != 4 && opcao != 8) {
                     opcao = 0;
                 }
             }
@@ -60,19 +63,17 @@ public class Terminal {
 
     private int getInt(String string) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Entre com: " + string);
+        System.out.println("" + string);
         if (scanner.hasNextInt()) {
             return scanner.nextInt();
         }
         System.out.println("Erro na leitura de dados");
         return 0;
     }
-    
-    
 
-    private String getString(String prompt) {
+    private String getString(String string) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Entre com: " + prompt);
+        System.out.println("" + string);
         return scanner.nextLine();
     }
 }

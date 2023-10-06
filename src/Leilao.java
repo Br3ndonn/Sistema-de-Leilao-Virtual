@@ -25,9 +25,9 @@ public class Leilao {
     public void melhorLance(Lote lote) {
         Lance melhorLance = lote.getMaiorLance();
         if(melhorLance != null) {
-            System.out.println("Lance: " + melhorLance.getValor());
+            System.out.println(" Lance: " + melhorLance.getValor());
         } else {
-            System.out.println("Nenhum lance");
+            System.out.println(" Nenhum lance até o momento");
         }
     }
     public Lote getLote(int numero) {
@@ -62,18 +62,21 @@ public class Leilao {
     
     public void close() {
         Iterator<Lote> it = this.lotes.iterator();
+        System.out.println("\nLOTES VENDIDOS\n");
         while (it.hasNext()) {
             Lote lote = it.next();
             Lance melhorLance = lote.getMaiorLance();
+
             if (melhorLance != null) {
-                System.out.println("Lote nº: " + lote.getNumero() + "(" +
-                        lote.getDescricao() + ")" + " foi vendido para " +
-                        melhorLance.getLicitante().getNome() + " por " +
-                        melhorLance.getValor());
-            } else {
-                System.out.println("Lote nº: " + lote.getNumero() + "(" +
-                        lote.getDescricao() + ")" + " não foi vendido");
+                System.out.println(" Lote nº: " + lote.getNumero() +
+                        " (" + lote.getDescricao() + ")" +
+                        " foi vendido para " + melhorLance.getLicitante().getNome() +
+                        " por R$ " + melhorLance.getValor());
             }
+        }
+        System.out.println("\nLOTES NAO VENDIDOS\n");
+        for(int i = 0; i < this.getNaoVendidos().size(); i++) {
+            System.out.println(" Lote nº: " + this.getNaoVendidos().get(i).toString() + " não foi vendido");
         }
     }
 }
