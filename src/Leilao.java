@@ -19,13 +19,15 @@ public class Leilao {
         while(it.hasNext()) {
             Lote lote = it.next();
             System.out.println(lote);
-            Lance melhorLance = lote.getMaiorLance();
-
-            if(melhorLance != null) {
-                System.out.println(" Lance: " + melhorLance.getValor());
-            } else {
-                System.out.println(" Nenhum lance");
-            }
+            melhorLance(lote);
+        }
+    }
+    public void melhorLance(Lote lote) {
+        Lance melhorLance = lote.getMaiorLance();
+        if(melhorLance != null) {
+            System.out.println("Lance: " + melhorLance.getValor());
+        } else {
+            System.out.println("Nenhum lance");
         }
     }
     public Lote getLote(int numero) {
@@ -39,7 +41,6 @@ public class Leilao {
             return null;
         }
     }
-
     public ArrayList getNaoVendidos() {
         ArrayList<Lote> naoVendidos = new ArrayList<>();
         Iterator<Lote> it = this.lotes.iterator();
@@ -58,11 +59,7 @@ public class Leilao {
         System.out.println("Lote nº " + numero + " não existe");
         return false;
     }
-    //iterar pela coleção
-    //de lotes e imprimir detalhes de todos os lotes. Para lotes que foram vendidos, os
-    //detalhes devem incluir o nome do arrematador vencedor e o valor do lance
-    //ganhador. Para lotes que não foram vendidos, imprima uma mensagem que indica
-    //este fato.
+    
     public void close() {
         Iterator<Lote> it = this.lotes.iterator();
         while (it.hasNext()) {
